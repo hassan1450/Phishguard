@@ -143,6 +143,8 @@ Treat serialized model artifacts as trusted project files and only load artifact
 Use additional security controls and independent verification before deciding whether a URL is safe.
 
 PhishGuard is an experimental detection tool, not a guarantee that a URL is safe or malicious. Do not use it as your only security control.
+MODEL:
+<img width="958" height="446" alt="image" src="https://github.com/user-attachments/assets/0c7ff528-f131-474b-92cd-8055d6eea0e6" />
 
 Learning Goals
 
