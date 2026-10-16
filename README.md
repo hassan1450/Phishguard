@@ -1,158 +1,188 @@
- PhishGuard — ML-Powered Phishing URL Detection
+PhishGuard: Machine-Learning-Based Phishing URL Detection
 
-PhishGuard is a Flask-based web application that analyzes URLs to estimate phishing risk using machine-learning models and explainable URL features. It provides risk assessments, model predictions, and human-readable warning signals to help users identify potentially suspicious URLs.
+PhishGuard is a Flask-based web application that estimates phishing risk from URL structure using trained machine-learning models and lexical URL feature extraction. It provides risk assessments, individual model predictions, and human-readable URL warning signals through a web interface and HTTP API.
 
- Disclaimer: PhishGuard is an experimental research prototype, not a guarantee that a URL is safe or malicious. Its predictions may be incorrect. Always use additional security measures when evaluating suspicious links. PhishGuard analyzes URL strings without visiting the submitted websites.
- Features
- URL Risk Analysis — Estimate phishing risk based on URL structure and lexical features.
- Machine Learning Predictions — Generate predictions using trained machine-learning models.
- Explainable Warning Signals — Display human-readable indicators that may suggest suspicious URL behavior.
- Model Lab — Explore model evaluation metrics and feature importances.
- Model Training — Retrain models using a properly labeled CSV dataset.
- Flask API — Integrate URL risk analysis into other applications.
- Render Deployment — Deployment configuration for hosting the application on Render.
- Tech Stack
-Backend: Python, Flask
-Machine Learning: Trained ML models and lexical URL feature extraction
-Frontend: HTML, CSS, JavaScript
-API: Flask REST endpoints
-Deployment: Render, Gunicorn
- Project Structure
+Project type: Cybersecurity and machine-learning research prototype. The repository includes the Flask application, frontend assets, model-training workflow, trained model artifacts, and Render deployment configuration. The application analyzes submitted URL strings without visiting the corresponding websites.
+
+Important: PhishGuard is an experimental detection tool, not a guarantee that a URL is safe or malicious. Predictions may produce false positives or false negatives. Do not use it as your only security control.
+
+Scene Features
+URL risk analysis: Estimates phishing risk using lexical characteristics extracted from submitted URLs.
+Machine-learning predictions: Uses trained models to generate URL classifications and risk assessments.
+Explainable warning signals: Presents human-readable indicators that may suggest suspicious URL characteristics.
+Model Lab: Displays model evaluation metrics and feature importances.
+Flask API: Provides HTTP endpoints for model metrics and URL prediction.
+Model training workflow: Supports retraining with a properly labeled CSV dataset.
+Web interface: Provides a browser-based interface built with HTML, CSS, and JavaScript.
+Deployment configuration: Includes a Render Blueprint configuration for hosting the application.
+
+The application focuses on URL-based analysis. It does not visit submitted websites or independently verify their live content, reputation, or behavior.
+
+Technology Stack
+Technology	Purpose
+Python	Application logic, feature processing, and model integration
+Flask	Web application and HTTP API
+Machine-learning libraries	Training and inference using the configured models
+HTML	Web interface structure
+CSS	Frontend styling and layout
+JavaScript	Client-side interactions and API communication
+Joblib	Loading serialized model artifacts, if used by the application
+Gunicorn	Production WSGI server for deployment
+Render	Application hosting and deployment
+Git and GitHub	Source control and project hosting
+
+The exact machine-learning algorithms and dependency versions are defined by the implementation and requirements.txt.
+
+Repository Structure
 phishingdetector/
-├── app.py
-├── features.py
-├── index.html
-├── script.js
-├── style.css
-├── train.py
-├── requirements.txt
-├── render.yaml
-├── README.md
+├── app.py                 # Flask application and API endpoints
+├── features.py            # URL feature extraction
+├── index.html             # Web interface
+├── script.js              # Frontend logic and API requests
+├── style.css              # Frontend styling
+├── train.py               # Model training workflow
+├── requirements.txt       # Python dependencies
+├── render.yaml            # Render deployment configuration
+├── README.md              # Project documentation
 └── model/
-    ├── metrics.json
-    └── model.joblib
+    ├── metrics.json       # Model evaluation metrics
+    └── model.joblib       # Trained model artifact
 
 
-Important files:
+The model/ directory contains the trained artifacts required by the application at runtime. The training dataset, such as phidata.csv, is not required for normal application execution if the trained artifacts are already available.
 
-app.py — Flask application and API endpoints.
-features.py — URL feature extraction.
-train.py — Model training workflow.
-index.html — Web interface.
-style.css — Frontend styling.
-script.js — Frontend interactions and API communication.
-requirements.txt — Python dependencies.
-render.yaml — Render deployment configuration.
-model/ — Trained model artifacts and evaluation metrics.
+Keep virtual environments, cache files, private configuration, API credentials, and datasets that should not be distributed out of the public repository.
 
-The trained model files are required to run the application. The training dataset (phidata.csv) is not required at runtime and should remain excluded from Git if it is not intended for distribution.
-
-⚙️ Getting Started
-Prerequisites
+Build and Run
+Requirements
 Python 3.10 or newer
-Git
 pip
-1. Clone the repository
+Git
+A compatible Python environment for the dependencies listed in requirements.txt
+The required trained model artifacts in the model/ directory
+Clone the repository
 git clone https://github.com/hassan1450/Phishguard.git
 cd Phishguard
 
-2. Create a virtual environment
+Create a virtual environment
 
-Windows PowerShell:
+For Windows PowerShell:
 
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
 
-If PowerShell blocks environment activation, you can run the environment's Python executable directly instead.
+If PowerShell prevents environment activation, use the virtual environment's Python executable directly or follow your system's Python environment policy.
 
-3. Install dependencies
+Install dependencies
 python -m pip install -r requirements.txt
 
-4. Run the application
+Run the application
 python app.py
 
 
-Open the application in your browser:
+Open the following address in your browser:
 
 http://127.0.0.1:5000
 
-The built-in Flask server is intended for local development. For deployment, use the configured production server.
 
- Retraining the Models
+The built-in Flask development server is intended for local testing. Use the configured production server when deploying the application.
 
-To train the models using your own labeled dataset:
-
-Obtain a suitable CSV dataset and verify its license.
-Review the expected CSV format and label mapping in train.py.
-Set PHISHING_VALUE appropriately for your dataset.
-Run the training script:
-python train.py .\your-dataset.csv
-
-
-The script writes updated model artifacts to the model/ directory.
-
-Verify the dataset's label meanings and the printed phishing and legitimate sample counts before relying on the trained models.
-
-🔌 API Documentation
+API Endpoints
 GET /api/metrics
 
 Returns model readiness information and evaluation metrics.
 
-Example:
+Example local endpoint:
 
-GET /api/metrics
+http://127.0.0.1:5000/api/metrics
 
 POST /api/predict
 
-Analyzes a submitted URL and returns a risk assessment, verdict, individual model predictions, and URL warning signals.
+Accepts a URL and returns a risk assessment, verdict, individual model predictions, and URL warning signals, according to the application's implementation.
 
-Request body:
+Example request:
 
 {
   "url": "https://example.com/login"
 }
 
 
-Example request using curl:
+Example request using cURL:
 
 curl -X POST http://127.0.0.1:5000/api/predict \
   -H "Content-Type: application/json" \
   -d "{\"url\":\"https://example.com/login\"}"
 
 
-Submitted URLs are limited to 2,048 characters.
+The application limits submitted URLs to 2,048 characters. Actual response fields and risk-score interpretation depend on the implementation in app.py.
 
-The actual response fields and risk-score interpretation depend on the implementation in app.py.
+Model Training
 
- Deployment on Render
+PhishGuard includes a training workflow for updating its machine-learning models using a labeled CSV dataset.
 
-PhishGuard includes a render.yaml Blueprint configuration.
+Training requirements
+A dataset in the format expected by train.py
+Correctly labeled phishing and legitimate URL samples
+The Python dependencies required by the training workflow
+Example training command
 
-Push the project to your GitHub repository.
-Ensure requirements.txt, render.yaml, and the required files in model/ are committed.
+Place your dataset in the project directory and run:
+
+python train.py .\your-dataset.csv
+
+
+The script writes updated model artifacts to the model/ directory.
+
+Before training, inspect train.py to verify the expected column names, label mapping, and PHISHING_VALUE setting. Check the resulting sample counts and evaluation metrics, and verify that the dataset's license permits your intended use.
+
+Training performance should be evaluated on appropriate held-out data. High scores on a single dataset do not guarantee reliable detection of previously unseen phishing URLs.
+
+Deployment
+
+PhishGuard includes a render.yaml configuration for deployment on Render.
+
+Deployment steps
+Push the project to the GitHub repository.
+Verify that requirements.txt, render.yaml, and the required model artifacts are committed.
 Sign in to Render.
 Select New → Blueprint.
-Connect your GitHub repository and apply the configuration.
-Wait for the deployment to complete.
-Open your deployed application and test the URL analysis feature.
-Check /api/metrics on your deployed service to verify model readiness.
+Connect the GitHub repository and apply the Blueprint configuration.
+Wait for the build and deployment to complete.
+Open the deployed service URL and test the application.
+Check the deployed /api/metrics endpoint to verify model readiness.
 
-The included configuration may use Render's free web-service plan, where available. Free services can sleep after inactivity, which may increase the response time of the first request.
+The configured deployment settings are defined in render.yaml. Available service plans and their limitations depend on Render's current offerings. Free services may sleep after periods of inactivity, causing a delay on the first subsequent request.
 
- Security and Limitations
-PhishGuard analyzes URL strings and does not visit the submitted websites.
-URL-based features alone cannot detect every phishing attack.
-Machine-learning predictions can produce false positives and false negatives.
-Do not submit secrets, credentials, or sensitive personal information.
-Keep API keys, .env files, virtual environments, and private datasets out of your public repository.
-Use additional security tools and independent verification before trusting a URL.
-🛣️ Future Improvements
+Security Considerations and Limitations
+URL structure alone cannot identify every phishing attack.
+Predictions may incorrectly classify legitimate URLs or fail to detect malicious ones.
+The application analyzes submitted URL strings rather than browsing the websites.
+Avoid submitting passwords, authentication tokens, or other sensitive information.
+Keep private datasets, credentials, .env files, and local virtual environments out of public commits.
+Treat serialized model artifacts as trusted project files; only load artifacts from sources you trust.
+Use additional security controls and independent verification before deciding whether a URL is safe.
+Learning Goals
 
-Potential improvements include:
+This project demonstrates practical concepts in:
 
-Additional URL features and model comparisons.
-More detailed explanations of individual risk indicators.
-Improved evaluation on diverse, independently sourced datasets.
-Automated testing and continuous integration.
-Enhanced input validation, logging, and API error handling.
+Machine-learning-based phishing URL classification.
+Lexical URL feature engineering.
+Model training, evaluation, and inference.
+Explainable risk indicators.
+Flask application development and HTTP API design.
+Frontend-to-backend communication.
+Model artifact management.
+Version control and cloud deployment.
+Future Improvements
+Add screenshots and a demonstration video of the web interface.
+Document the specific algorithms and model evaluation results.
+Expand testing against diverse phishing and legitimate URL datasets.
+Add automated unit and integration tests.
+Improve API error handling and input validation.
+Add continuous integration for testing changes before deployment.
+Document reproducible training configurations and dependency versions.
+Evaluate detection quality on independently sourced, held-out datasets.
+Author
+NOOR UL HASSAN
+GitHub: https://github.com/hassan1450
