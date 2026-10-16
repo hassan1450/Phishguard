@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhishGuard · ML Phishing URL Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="bg">
+    <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+    <div class="grid"></div>
+  </div>
+
+  <header class="nav">
+    <div class="brand"><span class="logo">🛡️</span><span>Phish<b>Guard</b></span></div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="scan">Scanner</button>
+      <button class="tab" data-tab="models">Model Lab</button>
+      <button class="tab" data-tab="about">How it works</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SCANNER -->
+    <section id="scan" class="panel active">
+      <div class="hero">
+        <span class="pill">Machine Learning · Phishing URL Detection</span>
+        <h1>Is this link <span class="grad">safe</span>?</h1>
+        <p>Paste any URL. Three ML models analyse its structure and estimate the phishing risk in real time.</p>
+      </div>
+
+      <div id="banner" class="banner"></div>
+
+      <div class="card scan-card" id="scanCard">
+        <div class="scan-line"></div>
+        <div class="input-row">
+          <input id="urlInput" type="text" placeholder="https://example.com/login" autocomplete="off" spellcheck="false">
+          <button id="scanBtn" class="btn"><span>Scan URL</span></button>
+        </div>
+        <div class="chips">
+          <small>Try:</small>
+          <button class="chip" data-url="https://www.wikipedia.org">wikipedia.org</button>
+          <button class="chip" data-url="http://192.168.1.15/secure-login/verify-account.php">IP + login</button>
+          <button class="chip" data-url="http://paypal.com.account-verify.secure-update.example.xyz/signin?id=1">fake PayPal</button>
+        </div>
+        <p id="error" class="error"></p>
+      </div>
+
+      <div id="result" class="card result">
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 180 180" class="gauge">
+            <circle class="g-bg" cx="90" cy="90" r="70"/>
+            <circle class="g-fg" id="gFg" cx="90" cy="90" r="70" transform="rotate(-90 90 90)"/>
+          </svg>
+          <div class="g-center"><b id="riskNum">0</b><span>% risk</span></div>
+        </div>
+        <div class="r-body">
+          <h2 id="verdict"></h2>
+          <p class="r-url" id="rUrl"></p>
+          <div class="model-chips" id="modelChips"></div>
+          <h3>Why?</h3>
+          <ul class="signals" id="signals"></ul>
+          <p class="disclaimer">This is a research prototype. Treat the result as one extra security signal, not a guarantee.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODEL LAB -->
+    <section id="models" class="panel">
+      <div class="hero small">
+        <h1>Model <span class="grad">Lab</span></h1>
+        <p>Performance of Logistic Regression, Decision Tree and Random Forest on your dataset.</p>
+      </div>
+      <div id="modelsRoot"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="panel">
+      <div class="hero small">
+        <h1>How it <span class="grad">works</span></h1>
+        <p>The 7-stage supervised learning workflow from the research proposal.</p>
+      </div>
+      <div class="steps">
+        <div class="card step"><i>1</i><h4>Dataset collection</h4><p>Labeled phishing and legitimate URLs from a public dataset.</p></div>
+        <div class="card step"><i>2</i><h4>Preprocessing</h4><p>Remove duplicates and missing values; convert labels to 0/1.</p></div>
+        <div class="card step"><i>3</i><h4>Feature selection</h4><p>URL length, subdomains, IP usage, HTTPS, suspicious words, entropy and more.</p></div>
+        <div class="card step"><i>4</i><h4>Data splitting</h4><p>Stratified 80:20 split plus an unseen-domain split to test generalization.</p></div>
+        <div class="card step"><i>5</i><h4>Model training</h4><p>Logistic Regression, Decision Tree and Random Forest on identical data.</p></div>
+        <div class="card step"><i>6</i><h4>Evaluation</h4><p>Accuracy, precision, recall, F1 and confusion matrices (phishing = positive class).</p></div>
+        <div class="card step"><i>7</i><h4>Prediction</h4><p>The scanner extracts the same features from a new URL and classifies it.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>PhishGuard · BSIT research project · predictions are probabilistic, not guarantees</footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

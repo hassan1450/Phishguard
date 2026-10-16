@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local configuration and editor files
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# Logs and generated files
+*.log
+out.html
+
+# Local training data (keep datasets out of the public repository)
+phidata.csv
+data/*.csv
+
+# OS-generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,136 @@
+{
+  "ready": true,
+  "mode": "url",
+  "dataset": "phidata.csv",
+  "rows": 11429,
+  "phishing": 5714,
+  "legitimate": 5715,
+  "n_features": 30,
+  "models": {
+    "Logistic Regression": {
+      "accuracy": 0.8132108486439195,
+      "precision": 0.8448940269749519,
+      "recall": 0.7672790901137357,
+      "f1": 0.8042182485098579,
+      "confusion": {
+        "tn": 982,
+        "fp": 161,
+        "fn": 266,
+        "tp": 877
+      }
+    },
+    "Decision Tree": {
+      "accuracy": 0.8333333333333334,
+      "precision": 0.8482632541133455,
+      "recall": 0.8118985126859143,
+      "f1": 0.829682610639249,
+      "confusion": {
+        "tn": 977,
+        "fp": 166,
+        "fn": 215,
+        "tp": 928
+      }
+    },
+    "Random Forest": {
+      "accuracy": 0.8801399825021873,
+      "precision": 0.8801399825021873,
+      "recall": 0.8801399825021873,
+      "f1": 0.8801399825021873,
+      "confusion": {
+        "tn": 1006,
+        "fp": 137,
+        "fn": 137,
+        "tp": 1006
+      }
+    }
+  },
+  "domain_split": {
+    "Logistic Regression": {
+      "accuracy": 0.795344751866491,
+      "precision": 0.7833655705996132,
+      "recall": 0.7699619771863118,
+      "f1": 0.7766059443911792,
+      "confusion": {
+        "tn": 1001,
+        "fp": 224,
+        "fn": 242,
+        "tp": 810
+      }
+    },
+    "Decision Tree": {
+      "accuracy": 0.7768994290733421,
+      "precision": 0.7585551330798479,
+      "recall": 0.7585551330798479,
+      "f1": 0.7585551330798479,
+      "confusion": {
+        "tn": 971,
+        "fp": 254,
+        "fn": 254,
+        "tp": 798
+      }
+    },
+    "Random Forest": {
+      "accuracy": 0.8493631971892841,
+      "precision": 0.8185085354896675,
+      "recall": 0.8659695817490495,
+      "f1": 0.8415704387990762,
+      "confusion": {
+        "tn": 1023,
+        "fp": 202,
+        "fn": 141,
+        "tp": 911
+      }
+    }
+  },
+  "best": "Random Forest",
+  "importances": [
+    {
+      "feature": "url_entropy",
+      "importance": 0.08915348613229199
+    },
+    {
+      "feature": "host_entropy",
+      "importance": 0.08682604279353905
+    },
+    {
+      "feature": "digit_ratio",
+      "importance": 0.06943779763675716
+    },
+    {
+      "feature": "num_digits",
+      "importance": 0.0693002292687145
+    },
+    {
+      "feature": "host_length",
+      "importance": 0.0622500838632876
+    },
+    {
+      "feature": "path_length",
+      "importance": 0.06220157115533073
+    },
+    {
+      "feature": "num_subdomains",
+      "importance": 0.058992923238353416
+    },
+    {
+      "feature": "num_slashes",
+      "importance": 0.05777933977271472
+    },
+    {
+      "feature": "url_length",
+      "importance": 0.0570724463525249
+    },
+    {
+      "feature": "num_hyphens",
+      "importance": 0.0553672242840519
+    },
+    {
+      "feature": "suspicious_words",
+      "importance": 0.04953085738570381
+    },
+    {
+      "feature": "num_letters",
+      "importance": 0.04527272099923933
+    }
+  ]
+}
